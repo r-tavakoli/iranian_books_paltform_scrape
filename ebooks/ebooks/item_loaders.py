@@ -3,3 +3,7 @@ from itemloaders.processors import TakeFirst
 
 class EbookLoader(ItemLoader):
     default_output_processor = TakeFirst()
+
+
+class TaaghcheEbookLoader(EbookLoader):
+    default_output_processor = TakeFirst()
