@@ -1,5 +1,5 @@
 from scrapy import Spider
-from ebooks.item_loaders import TaaghcheEbookLoader
+from ebooks.item_loaders import TaaghcheEbooksLoader
 from ebooks.items import TaaghcheEbooksItem
 from ebooks.types import *
 from urllib.parse import urlparse, parse_qs
@@ -20,37 +20,37 @@ class TaaghcheEbook(Spider):
         "https://taaghche.com/filter?filter-bookType=1&order=0", # newest audio books
     ]
     
-    def get_param_values(self, url):
+    def get_category_and_book_type(self, url):
         """
         Extracts the 'book type' and 'category name' parameters from the URL
         and maps their integer values to meaningful string values using custom enums.
         """
         # Parse the URL to extract the query parameters
         parsed_params = parse_qs(urlparse(url).query)
-        book_type_param_value = int(parsed_params['filter-bookType'][0])
-        category_name_param_value = int(parsed_params['order'][0])
+        book_type_id = int(parsed_params['filter-bookType'][0])
+        category_name_id = int(parsed_params['order'][0])
 
         # Map the integer index to a string using the custom BookType enum and CategoryName enum
-        book_type = BookType.get_values()[book_type_param_value]
-        category_name = CategoryName.get_values()[category_name_param_value]
+        book_type = BookType.get_values()[book_type_id]
+        category_name = CategoryName.get_values()[category_name_id]
 
         return book_type, category_name
 
     def parse(self, response):
         
         # Determine the book type and category based on the current response URL
-        book_type, category_name = self.get_param_values(response.url)
+        book_type, category_name = self.get_category_and_book_type(response.url)
 
         books = response.xpath("//div[starts-with(@class, 'bookCard_book_')]")
 
         for id, book in enumerate(books, start=1):
 
-            loader = TaaghcheEbookLoader(item=TaaghcheEbooksItem(), selector=book)
+            loader = TaaghcheEbooksLoader(item=TaaghcheEbooksItem(), selector=book)
             
             # --- Load Static/Derived Fields ---
             loader.add_value("sort_id", id)
-            loader.add_value("website_id", Website.Taaghche.id)
-            loader.add_value("website_name", Website.Taaghche.text)
+            loader.add_value("website_id", Website.TAAGHCHE.id)
+            loader.add_value("website_name", Website.TAAGHCHE.text)
             loader.add_value("category_name", category_name)
             loader.add_value("book_type", book_type)
             

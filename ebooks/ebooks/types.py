@@ -17,13 +17,13 @@ class BaseEnum(Enum):
 
 class BookType(BaseEnum):
     EBOOK = (0, "ebook")
-    AudioBook = (1, "audio_book")
+    AUDIOBOOK = (1, "audio_book")
 
 class CategoryName(BaseEnum):
     NEWEST = (0, "newest")
     MOST_POPLUAR = (1, "most_popular")
 
 class Website(BaseEnum):
-    Taaghche = (1, "taaghche.com")
-    IranKetab = (2, "iranketab.ir")   
-    Fidibo = (3, "fidibo.com")
+    TAAGHCHE = (1, "taaghche.com")
+    KETABRAH = (2, "ketabrah.com")   
+    FIDIBO = (3, "fidibo.com")

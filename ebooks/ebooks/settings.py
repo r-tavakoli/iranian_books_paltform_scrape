@@ -61,7 +61,7 @@ DEFAULT_REQUEST_HEADERS = {
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     "ebooks.pipelines.DefaultValuePipeline": 101,
-    "ebooks.pipelines.CsvExportPipeline": 102,
+    # "ebooks.pipelines.CsvExportPipeline": 102,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -89,7 +89,7 @@ ITEM_PIPELINES = {
 FEED_EXPORT_ENCODING = "utf-8"
 
 
-LOG_FILE = 'scrapy_pipeline_debug.log' 
-LOG_LEVEL = 'DEBUG'
-LOG_FILE_APPEND = False 
+# LOG_FILE = 'scrapy_pipeline_debug.log' 
+# LOG_LEVEL = 'DEBUG'
+# LOG_FILE_APPEND = False 
 

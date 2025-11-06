@@ -5,5 +5,8 @@ class EbookLoader(ItemLoader):
     default_output_processor = TakeFirst()
 
 
-class TaaghcheEbookLoader(EbookLoader):
-    default_output_processor = TakeFirst()
+class TaaghcheEbooksLoader(EbookLoader):
+    pass
+
+class KetabrahEbooksLoader(EbookLoader):
+    pass

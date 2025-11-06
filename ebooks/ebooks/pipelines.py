@@ -22,6 +22,9 @@ class DefaultValuePipeline:
 
                     # IMPORTANT: Use deepcopy() to prevent mutable defaults
                     adapter[field_name] = deepcopy(default)
+        
+        if adapter['selling_price'] == 0:
+            adapter['selling_price'] = adapter['price']
 
         return item
 
@@ -70,7 +73,7 @@ class CsvExportPipeline:
         self.exporter = CsvItemExporter(
             file=self.file, 
             fields_to_export=self.fields_to_export,
-            encoding='utf-8'
+            encoding='utf-8-sig'
             )
             
         # Start the export process, which writes the header row (column names) 

@@ -34,9 +34,9 @@ class CsvItemExport(EbooksItem):
 
 
 # --- Utility Functions for ItemLoader Processors ---
-def url_join(url):
+def url_join(base, url):
     """Prepends the base Taaghche URL to a relative URL fragment."""
-    return urljoin("https://taaghche.com", url)
+    return urljoin(base, url)
 
 def get_nth_item(value, n):
     """Safely retrieves the n-th item from a list of values. Returns 0 on IndexError."""
@@ -44,6 +44,11 @@ def get_nth_item(value, n):
         return value[n]
     except (IndexError, TypeError):
         return 0
+    
+def extract_number(value):
+    return ''.join(v for v in value if v.isdigit())
+        
+
 
 
 class TaaghcheEbooksItem(EbooksItem):
@@ -51,10 +56,10 @@ class TaaghcheEbooksItem(EbooksItem):
     Specific Item definition for Taaghche data.
     It customizes the Field properties using input_processors to clean and
     convert raw string data extracted from the web page into desired types. 
-    Also adds default_values used specifically by the DefaultValuePipeline.
+    Also default_values are used specifically by the DefaultValuePipeline.
     """    
     url = Field(
-        input_processor = MapCompose(url_join)
+        input_processor = MapCompose(lambda u: url_join("https://taaghche.com/", u))
         )       
     votes = Field(
         input_processor = Compose(Identity(), lambda v: get_nth_item(v, n=1), int),
@@ -70,5 +75,36 @@ class TaaghcheEbooksItem(EbooksItem):
     )
     selling_price = Field(
         input_processor = MapCompose(lambda sp: sp.replace(',', ''), int),
+        default_value=0
+    )
+
+
+class KetabrahEbooksItem(EbooksItem):
+    """
+    Specific Item definition for ketabrah data.
+    It customizes the Field properties using input_processors to clean and
+    convert raw string data extracted from the web page into desired types. 
+    Also default_values are used specifically by the DefaultValuePipeline.
+    """    
+    book_title = Field(
+        input_processor = MapCompose(lambda i: i.lstrip('کتاب صوتی'), lambda i: i.lstrip('کتاب'), str.strip)
+    )
+    url = Field(
+        input_processor = MapCompose(lambda u: url_join("https://ketabrah.com/", u))
+        )       
+    votes = Field(
+        input_processor = MapCompose(extract_number, int),
+        default_value=0
+    )
+    rate = Field(
+        input_processor = MapCompose(lambda r: r.replace('٫', '.'), float),
+        default_value=0
+    )
+    price = Field(
+        input_processor = MapCompose(extract_number, int),
+        default_value=0
+    )
+    selling_price = Field(
+        input_processor = MapCompose(extract_number, int),
         default_value=0
     )
