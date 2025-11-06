@@ -15,14 +15,14 @@ This project serves primarily for **training and demonstration purposes** to sho
 
 ---
 
-## 🚀 Getting Started
-
-Follow these steps to set up and run the scraping project locally.
-
 ## ⚠️ Disclaimer
 This project is for educational purposes only. Please be mindful of the robots.txt file and the Terms of Service of any website you intend to scrape. 
 The scraping targets used in this repository are for demonstration and learning purposes.
 
+---
+## 🚀 Getting Started
+
+Follow these steps to set up and run the scraping project locally.
 
 ### Prerequisites
 
