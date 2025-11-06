@@ -108,3 +108,34 @@ class KetabrahEbooksItem(EbooksItem):
         input_processor = MapCompose(extract_number, int),
         default_value=0
     )
+
+class FidiboEbooksItem(EbooksItem):
+    """
+    Specific Item definition for fidiboEbooksItem data.
+    It customizes the Field properties using input_processors to clean and
+    convert raw string data extracted from the web page into desired types. 
+    Also default_values are used specifically by the DefaultValuePipeline.
+    """    
+    book_title = Field(
+        input_processor = MapCompose(lambda i: i.lstrip('کتاب صوتی'), lambda i: i.lstrip('کتاب'), str.strip)
+    )
+    url = Field(
+        input_processor = MapCompose(lambda u: url_join("https://ketabrah.com/", u))
+        )       
+    votes = Field(
+        input_processor = MapCompose(extract_number, int),
+        default_value=0
+    )
+    rate = Field(
+        input_processor = MapCompose(lambda r: r.replace('٫', '.'), float),
+        default_value=0
+    )
+    price = Field(
+        input_processor = MapCompose(extract_number, int),
+        default_value=0
+    )
+    selling_price = Field(
+        input_processor = MapCompose(extract_number, int),
+        default_value=0
+    )
+

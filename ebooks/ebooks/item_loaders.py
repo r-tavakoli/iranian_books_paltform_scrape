@@ -10,3 +10,6 @@ class TaaghcheEbooksLoader(EbookLoader):
 
 class KetabrahEbooksLoader(EbookLoader):
     pass
+
+class FidiboEbooksLoader(EbookLoader):
+    pass
