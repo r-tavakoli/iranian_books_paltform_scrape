@@ -14,7 +14,6 @@ NEWSPIDER_MODULE = "ebooks.spiders"
 
 ADDONS = {}
 
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "ebooks (+http://www.yourdomain.com)"
 
@@ -47,9 +46,10 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "ebooks.middlewares.EbooksDownloaderMiddleware": 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   "ebooks.middlewares.EbooksDownloaderMiddleware": 543,
+    'scrapy_selenium.SeleniumMiddleware': 800,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -92,4 +92,5 @@ FEED_EXPORT_ENCODING = "utf-8"
 # LOG_FILE = 'scrapy_pipeline_debug.log' 
 # LOG_LEVEL = 'DEBUG'
 # LOG_FILE_APPEND = False 
+
 

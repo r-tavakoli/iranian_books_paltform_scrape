@@ -13,7 +13,7 @@ class FidiboEbook(Spider):
     name = "ebook_fidibo"
     
     # The URLs are configured to access different filtered/sorted lists.
-    start_urls = [
+    urls_to_scrape = [
         "https://fidibo.com/contents/list?sort=POPULAR&types=[1]", # most popular ebooks
         # "https://fidibo.com/contents/list?sort=POPULAR&types=[2]", # most popular audio books
         # "https://fidibo.com/contents/list?sort=RECENT&types=[2]", # newest audio books
@@ -38,13 +38,27 @@ class FidiboEbook(Spider):
         category_name = CategoryName.get_values()[category_name_id]
 
         return book_type, category_name
+    
+    # def start_requests(self):
+    #     for url in self.urls_to_scrape:
+    #         yield SeleniumRequest(url=url, callback=self.parse)
 
     def parse(self, response):
         
+        try:
+            driver = response.meta['driver']
+            print('Selenium WebDriver is successfully accessible!', driver)
+        except KeyError as e:
+            print('oh no......................................... (Should not happen)')    
+            print(e)   
         # Determine the book type and category based on the current response URL
         book_type, category_name = self.get_category_and_book_type(response.url)
 
-        books = response.xpath("//div[starts-with(@class, 'content-card-container')]/a[contains(@class, 'content-card-container-item')]")
+
+
+        # books = response.xpath("//div[starts-with(@class, 'content-card-container')]/a[contains(@class, 'content-card-container-item')]")
+
+        # print(books)
 
         # for id, book in enumerate(books, start=1):
 
