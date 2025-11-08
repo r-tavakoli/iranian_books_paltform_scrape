@@ -8,7 +8,7 @@ This project serves primarily for **training and demonstration purposes** to sho
 
 ## ✨ Features
 
-* **Framework:** Built using **Scrapy**, a fast and powerful Python web scraping framework.
+* **Framework:** Built using **Scrapy**, a fast and powerful Python web scraping framework and **scrapy-playwright** to handle pages that require JavaScript.
 * **Target Websites:** Scrapes data from **iranketab, fidibo, taaghche**.
 * **Data Output:** Extracted data is saved into individual **CSV files** for each spider.
 * **Data Fields:** (Specify the main data points you extract, e.g., Title, Author, Price, URL, Rating).
@@ -31,3 +31,4 @@ You need **Python 3.x** and **Scrapy** installed on your system.
 ```bash
 # Install Scrapy
 pip install scrapy
+pip install scrapy-playwright
