@@ -89,8 +89,18 @@ ITEM_PIPELINES = {
 FEED_EXPORT_ENCODING = "utf-8"
 
 
-# LOG_FILE = 'scrapy_pipeline_debug.log' 
-# LOG_LEVEL = 'DEBUG'
-# LOG_FILE_APPEND = False 
+LOG_FILE = 'scrapy_pipeline_debug.log' 
+LOG_LEVEL = 'DEBUG'
+LOG_FILE_APPEND = False 
+
+
+DOWNLOAD_HANDLERS = {
+    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+}
+
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+
+PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT = 20 * 1000  # 20 seconds
 
 

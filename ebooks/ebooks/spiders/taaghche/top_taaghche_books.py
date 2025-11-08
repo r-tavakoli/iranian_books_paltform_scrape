@@ -55,7 +55,10 @@ class TaaghcheEbook(Spider):
             loader.add_value("book_type", book_type)
             
             # --- Load Extracted Fields (XPath) ---
-            loader.add_xpath("url", ".//a[starts-with(@class, 'bookCard_bookLink')]/@href")
+            book_url = book.xpath(".//a[starts-with(@class, 'bookCard_bookLink')]/@href").get()
+            if book_url and not book_url.startswith("http"):
+                book_url = response.urljoin(book_url)
+            loader.add_value("url", book_url)
             loader.add_xpath("book_title", ".//span[starts-with(@class, 'bookCard_bookTitle')]/text()")
             loader.add_xpath("author", ".//div[starts-with(@class, 'bookCard_bookAuthorName')]/text()")
             loader.add_xpath("rate", ".//span[starts-with(@class, 'bookCard_rateNumber')]/text()")

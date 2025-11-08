@@ -26,6 +26,9 @@ class DefaultValuePipeline:
         if adapter['selling_price'] == 0:
             adapter['selling_price'] = adapter['price']
 
+        if adapter['selling_price'] > 0 and adapter['price'] == 0:
+                adapter['price'] = adapter['selling_price']
+                
         return item
 
 
